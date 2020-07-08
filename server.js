@@ -22,7 +22,7 @@ express()
 
   
   .get('/', (req, res) => {
-    res.status(200).send('Homepage')
+    res.render('pages/homepage')
   })
   
   // endpoints
