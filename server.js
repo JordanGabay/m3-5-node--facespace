@@ -22,7 +22,7 @@ express()
 
   
   .get('/', (req, res) => {
-    res.render('pages/homepage')
+    res.render('pages/homepage', {users: users});
   })
   
   // endpoints
