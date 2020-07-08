@@ -20,6 +20,11 @@ express()
   .use(express.urlencoded({ extended: false }))
   .set('view engine', 'ejs')
 
+  
+  .get('/', (req, res) => {
+    res.status(200).send('Homepage')
+  })
+  
   // endpoints
 
   // a catchall endpoint that will send the 404 message.
