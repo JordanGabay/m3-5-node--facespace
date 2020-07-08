@@ -24,6 +24,18 @@ express()
   .get('/', (req, res) => {
     res.render('pages/homepage', {users: users});
   })
+
+  .get('/users/:_id', (req,res) => {
+    const {_id} = req.params
+    console.log(_id)
+    const user = users.find((user) => {
+      if(user._id === _id) {
+        return true
+      }
+    })
+    // console.log(req.params)
+    res.render('pages/profile', {user: user})
+  })
   
   // endpoints
 
