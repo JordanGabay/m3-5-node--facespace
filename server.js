@@ -19,10 +19,14 @@ express()
   .use(express.static('public'))
   .use(express.urlencoded({ extended: false }))
   .set('view engine', 'ejs')
-
+  
   
   .get('/', (req, res) => {
     res.render('pages/homepage', {users: users});
+  })
+
+  .get('/signin', (req, res) => {
+    res.render('pages/signin')
   })
 
   .get('/users/:_id', (req,res) => {
@@ -41,12 +45,31 @@ express()
         }
       })
     })
+
+    const handleName = (req, res) => {
+      const firstName = req.body.firstName;
+      // console.log(req.body.firstName)
+      let foundUser = users.find((user) => {
+        return user.name === firstName;
+      })
+      
+      if (foundUser !== undefined) {
+        res.status(200).redirect('/users/' + foundUser._id)
+      } else {
+        res.status(400).redirect('signin');
+      }
+    }
+    
+    express()
+    .post('/getname', handleName)
+
+  
+    
     // console.log(friendsList)
     // console.log(req.params)
     res.render('pages/profile', {user: foundUser, friendsList})
   })
-  
-  // endpoints
+
 
   // a catchall endpoint that will send the 404 message.
   .get('*', handleFourOhFour)
