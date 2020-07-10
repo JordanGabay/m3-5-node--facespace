@@ -12,6 +12,19 @@ const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.");
 };
 
+const handleName = (req, res) => {
+  const firstName = req.body.firstName;
+  let foundUser = users.find((user) => {
+    return user.name === firstName;
+  })
+  
+  if (foundUser !== undefined) {
+    res.status(200).redirect('/users/' + foundUser._id)
+  } else {
+    res.status(400).redirect('signin');
+  }
+}
+
 // -----------------------------------------------------
 // server endpoints
 express()
@@ -46,30 +59,10 @@ express()
       })
     })
 
-    const handleName = (req, res) => {
-      const firstName = req.body.firstName;
-      // console.log(req.body.firstName)
-      let foundUser = users.find((user) => {
-        return user.name === firstName;
-      })
-      
-      if (foundUser !== undefined) {
-        res.status(200).redirect('/users/' + foundUser._id)
-      } else {
-        res.status(400).redirect('signin');
-      }
-    }
-    
-    express()
-    .post('/getname', handleName)
 
-  
-    
-    // console.log(friendsList)
-    // console.log(req.params)
     res.render('pages/profile', {user: foundUser, friendsList})
   })
-
+  .post('/getname', handleName)
 
   // a catchall endpoint that will send the 404 message.
   .get('*', handleFourOhFour)
