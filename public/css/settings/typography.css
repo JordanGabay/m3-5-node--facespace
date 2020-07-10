@@ -25,6 +25,12 @@ h2 {
 }
 
 h3 {
+  /* border-bottom: 1px solid var(--primary-color); */
+  font-size: 24px;
+  margin-bottom: 1em;
+}
+
+.borderb{
   border-bottom: 1px solid var(--primary-color);
   font-size: 24px;
   margin-bottom: 1em;

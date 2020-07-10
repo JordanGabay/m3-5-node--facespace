@@ -28,13 +28,22 @@ express()
   .get('/users/:_id', (req,res) => {
     const {_id} = req.params
     console.log(_id)
-    const user = users.find((user) => {
+    const foundUser = users.find((user) => {
+      // console.log(user)
       if(user._id === _id) {
         return true
       }
     })
+    let friendsList = foundUser.friends.map(friendId => {
+      return users.find((user) => {
+        if(user._id === friendId) {
+          return true
+        }
+      })
+    })
+    // console.log(friendsList)
     // console.log(req.params)
-    res.render('pages/profile', {user: user})
+    res.render('pages/profile', {user: foundUser, friendsList})
   })
   
   // endpoints
